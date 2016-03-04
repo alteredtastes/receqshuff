@@ -1,0 +1,20 @@
+.container {
+  margin: 0px auto;
+  width: 700px;
+  height: 700px;
+  border: 1px solid black;
+}
+
+.draggable {
+  float: left;
+  background-color: white;
+  width: 25%;
+  height: 25%;
+  box-sizing: border-box;
+  border: 1px solid black;
+}
+
+.droppable.border {
+  border-width: 5px;
+  border-color: white;
+}
