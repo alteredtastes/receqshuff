@@ -1,5 +1,8 @@
 #mainControls {
-  margin: 0px auto;
+  position: absolute;
+  margin: 0px 210px;
+  top: 0px;
+  left: 0px;
   box-sizing: border-box;
   width: 700px;
   height: 20px;
@@ -14,10 +17,10 @@
 }
 
 .bpmCntrl {
-  position: absolute;
-  top: 0px;
-  margin: 0px auto;
-  text-align: center;
+}
+
+#play {
+
 }
 
 .step {
