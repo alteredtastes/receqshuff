@@ -6,15 +6,33 @@ $(document).ready(function() {
   var vcas = [];
   var i;
   var now;
-  var beat;
 
-  // function metronome() {
-  //   now = context.currentTime;
-  //   beat = (1000*60)/($("#bpm").val());
-  //   if((now % beat) === 0) {
-  //     $('.step').toggleClass('trigger');
+  function triggerOn(beatStart) {
+    for(i = 0; i < 16; i++) {
+      if(beatStart === now) {
+      $('#step' + i.toString()).addClass('trigger');
+      }else if(now === (beatStart + 0.1)) {
+        $('#step' + i.toString()).removeClass('trigger');
+      }
+    }
+  }
+
+  // function triggerOff(index) {
+  //
+  //     }
   //   }
   // }
+
+  function timer() {
+    now = context.currentTime;
+    var $bpm = $('#bpm').val();
+    var eighthNote = (60/$bpm)/2;
+    for(i = 0; i < 16; i++) {
+      var beatStart = now + i * eighthNote;
+      triggerOn(beatStart);
+      }
+      // trigger(beat);
+    }
 
   function Source(vco, vcoType, vcoFreq, vca, vcaGainVal) {
     this.vco = vco;
@@ -55,11 +73,10 @@ $(document).ready(function() {
       }
     }
 
-  // metronome();
-  createSources();
+  timer();
+  // createSources();
 
-
-  for(i = 0; i < 15; i++) {
+  for(i = 0; i < 16; i++) {
     var $step = $('#step' + [i].toString());
     $step.click(function() {
       sources[i].vcaAttack();
