@@ -27,13 +27,13 @@ $(document).ready(function() {
   function triggerOn(i, increment) {
     setTimeout(function() {
       $('#step' + i.toString()).addClass('trigger');
-    }, (increment * 1000));
+    }, ((increment + 1) * 1000));
   }
 
   function triggerOff(i, increment, eighth) {
     setTimeout(function() {
       $('#step' + i.toString()).removeClass('trigger');
-    }, ((increment + eighth) * 1000));
+    }, ((increment + eighth + 1) * 1000));
   }
 
   function schedule() {
