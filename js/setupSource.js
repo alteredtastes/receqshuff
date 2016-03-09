@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
-  var buf, i;
-  var $bpm = $('#bpm').val();
+  var buf, bpm, i;
   var context = new AudioContext();
   var time = context.currentTime + 1;
 
@@ -11,7 +10,7 @@ $(document).ready(function() {
 
   function loadFile(file, planned) {
       var req = new XMLHttpRequest();
-      req.open("GET","../assets/" + file + ".wav",true);
+      req.open("GET","../assets/" + file + ".wav", true);
       req.responseType = "arraybuffer";
       req.onload = function() {
           context.decodeAudioData(req.response, function(buffer) {
@@ -29,8 +28,8 @@ $(document).ready(function() {
     src.start(planned);
   }
 
-  function schedule() {
-    var quarter = ((60*1000)/$bpm)/1000;
+  function schedule(bpm) {
+    var quarter = ((60*1000)/bpm)/1000;
     var eighth = quarter/2;
     console.log(eighth);
     for (i = 0; i < 16; i++){
@@ -47,11 +46,10 @@ $(document).ready(function() {
   $(window).keyup(function (e) {
   if (e.keyCode === 0 || e.keyCode === 32) {
     e.preventDefault()
-    schedule();
-  }
-})
+    bpm = $('#bpm').val();
+    time = context.currentTime + 1;
+    schedule(bpm);
+    }
+  })
 
-  $('#bpm:input').on('mousedown', function() {
-      updateBpm($('#bpm').val());
-    });
 });
