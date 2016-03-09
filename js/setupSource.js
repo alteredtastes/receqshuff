@@ -4,10 +4,6 @@ $(document).ready(function() {
   var context = new AudioContext();
   var time = context.currentTime + 1;
 
-  function updateBpm(value) {
-  $bpm = value;
-  }
-
   function loadFile(file, planned) {
       var req = new XMLHttpRequest();
       req.open("GET","../assets/" + file + ".wav", true);
@@ -28,6 +24,18 @@ $(document).ready(function() {
     src.start(planned);
   }
 
+  function triggerOn(i, increment) {
+    setTimeout(function() {
+      $('#step' + i.toString()).addClass('trigger');
+    }, (increment * 1000));
+  }
+
+  function triggerOff(i, increment, eighth) {
+    setTimeout(function() {
+      $('#step' + i.toString()).removeClass('trigger');
+    }, ((increment + eighth) * 1000));
+  }
+
   function schedule() {
     var quarter = ((60*1000)/bpm)/1000;
     var eighth = quarter/2;
@@ -35,6 +43,8 @@ $(document).ready(function() {
     for (i = 0; i < 16; i++){
       var increment = (i * eighth);
       loadFile("beep", time + increment);
+      triggerOn(i, increment);
+      triggerOff(i, increment, eighth);
     }
   }
 
