@@ -1,27 +1,42 @@
 $(document).ready(function() {
 
-  var buf;
+  var buf, i;
+  var $bpm = $('#bpm').val();
   var context = new AudioContext();
+  var time = context.currentTime + 1;
 
-  function loadFile() {
+  function updateBpm(value) {
+  $bpm = value;
+  }
+
+  function loadFile(file, planned) {
       var req = new XMLHttpRequest();
-      req.open("GET","../assets/beep.wav",true);
+      req.open("GET","../assets/" + file + ".wav",true);
       req.responseType = "arraybuffer";
       req.onload = function() {
           context.decodeAudioData(req.response, function(buffer) {
               buf = buffer;
-              play();
+              play(planned);
           });
       };
       req.send();
   }
 
-  function play() {
+  function play(planned) {
     var src = context.createBufferSource();
     src.buffer = buf;
     src.connect(context.destination);
-    //play immediately
-    src.start(0);
+    src.start(planned);
+  }
+
+  function schedule() {
+    var quarter = ((60*1000)/$bpm)/1000;
+    var eighth = quarter/2;
+    console.log(eighth);
+    for (i = 0; i < 16; i++){
+      var increment = (i * eighth);
+      loadFile("beep", time + increment);
+    }
   }
 
   for(i = 0; i < 16; i++) {
@@ -29,7 +44,14 @@ $(document).ready(function() {
     $('.step').attr('data-trigger', false);
   }
 
-  $('#play').on('mousedown', function() {
-      loadFile();
+  $(window).keyup(function (e) {
+  if (e.keyCode === 0 || e.keyCode === 32) {
+    e.preventDefault()
+    schedule();
+  }
+})
+
+  $('#bpm:input').on('mousedown', function() {
+      updateBpm($('#bpm').val());
     });
 });
