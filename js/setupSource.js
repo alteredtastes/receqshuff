@@ -28,7 +28,7 @@ $(document).ready(function() {
     src.start(planned);
   }
 
-  function schedule(bpm) {
+  function schedule() {
     var quarter = ((60*1000)/bpm)/1000;
     var eighth = quarter/2;
     console.log(eighth);
@@ -48,7 +48,7 @@ $(document).ready(function() {
     e.preventDefault()
     bpm = $('#bpm').val();
     time = context.currentTime + 1;
-    schedule(bpm);
+    schedule();
     }
   })
 
