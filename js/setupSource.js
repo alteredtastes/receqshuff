@@ -1,23 +1,52 @@
 $(document).ready(function() {
 
   var buf, bpm, spaceup, i;
+  var vcos = []; //'voltage controlled oscillators'
+  var vcas = []; //'voltage controlled amplifiers'
+  var stepsEnabled = [];
   var context = new AudioContext();
   var time = context.currentTime + 1;
 
-  function loadFile(file, planned) {
-      var req = new XMLHttpRequest();
-      req.open("GET","../assets/" + file + ".wav", true);
-      req.responseType = "arraybuffer";
-      req.onload = function() {
-          context.decodeAudioData(req.response, function(buffer) {
-              buf = buffer;
-              play(planned);
-          });
-      };
-      req.send();
+  function attack(j, planned) {
+    vcas[j].gain.cancelScheduledValues(planned);
+    vcas[j].gain.setValueAtTime(vcas[j].gain.value, planned);
+    vcas[j].gain.linearRampToValueAtTime(1, planned + 0.1);
   }
 
-  function play(planned) {
+  function release(j, planned) {
+    vcas[j].gain.cancelScheduledValues(planned);
+    vcas[j].gain.setValueAtTime(vcas[j].gain.value, planned);
+    vcas[j].gain.linearRampToValueAtTime(0, planned + 0.6);
+  }
+
+  function playSynth(planned, increment){
+    for(j = 0; j < 16; j++) {
+      vcos[j] = context.createOscillator();
+      vcas[j] = context.createGain();
+      vcos[j].connect(vcas[j]);
+      vcas[j].connect(context.destination);
+      vcos[j].frequency = 440;
+      vcas[j].gain.value = 0.02;
+      vcos[j].start(planned);
+      attack(j, planned);
+      release(j, planned);
+    }
+  }
+
+  function loadFile(file, planned) {
+    var req = new XMLHttpRequest();
+    req.open("GET","../assets/" + file + ".wav", true);
+    req.responseType = "arraybuffer";
+    req.onload = function() {
+        context.decodeAudioData(req.response, function(buffer) {
+            buf = buffer;
+            playFile(planned);
+        });
+    };
+    req.send();
+  }
+
+  function playFile(planned) {
     var src = context.createBufferSource();
     src.buffer = buf;
     src.connect(context.destination);
@@ -42,31 +71,37 @@ $(document).ready(function() {
     console.log(eighth);
     for (i = 0; i < 16; i++){
       var increment = (i * eighth);
-      loadFile("beep", time + increment);
+      // if(stepsEnabled[i] == true) {
+        if($('#sample:checked').val()) {
+          loadFile("beep", time + increment);
+        }else if($('#synth:checked').val()) {
+          playSynth(time + increment, increment);
+        }
+      // }
       triggerOn(i, increment);
       triggerOff(i, increment, eighth);
+      }
     }
-  }
 
   for(i = 0; i < 16; i++) {
     $('#mainContainer').append('<div id="step' + i.toString() + '" class="step"></div>');
     $('.step').attr('data-trigger', false);
   }
 
-  $(window).keydown(function(e) {
-    if (e.keyCode === 0 || e.keyCode === 32) {
-      e.preventDefault();
-      $('#play').addClass('active');
-      }
-    })
-
   $(window).keyup(function(e) {
     if (e.keyCode === 0 || e.keyCode === 32) {
       e.preventDefault();
-      $('#play').removeClass('active');
+      $('#playButton').removeClass('activate');
       bpm = $('#bpm').val();
       time = context.currentTime + 1;
       schedule();
+    }
+  })
+
+  $(window).keydown(function(e) {
+    if (e.keyCode === 0 || e.keyCode === 32) {
+      e.preventDefault();
+      $('#playButton').addClass('activate');
       }
     })
 
@@ -77,9 +112,13 @@ $(document).ready(function() {
     })
     $('#step' + i.toString()).on('dblclick', function() {
       $(this).toggleClass('stepOn');
+      if(stepsEnabled[i] == false || stepsEnabled[i] == undefined) {
+        stepsEnabled[i] = true;
+      }else if(stepsEnabled[i] == true){
+        stepsEnabled[i] = false;
+      }
     })
   }
-
 
   $('#mode').on('click', function() {
     if($(this).val() == 'design') {

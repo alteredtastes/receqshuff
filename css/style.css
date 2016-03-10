@@ -21,7 +21,7 @@
   margin: 0px auto;
 }
 
-#play {
+#playButton {
   border: none;
 }
 
@@ -36,7 +36,7 @@ div.trigger {
   opacity: 0.1;
 }
 
-.active {
+.activate {
   background-color: black;
   color: white;
 }
