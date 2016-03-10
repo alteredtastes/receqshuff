@@ -16,8 +16,18 @@
   border: 1px solid black;
 }
 
+#sideControls {
+  width: 50px;
+  margin: 0px auto;
+}
+
 #play {
   border: none;
+}
+
+#mode {
+  width: 66px;
+  text-align: center;
 }
 
 div.trigger {
@@ -53,5 +63,5 @@ div.trigger {
 }
 
 .srcType {
-  padding-left: 105px;
+  padding-left: 83px;
 }

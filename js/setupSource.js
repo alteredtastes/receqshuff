@@ -77,7 +77,16 @@ $(document).ready(function() {
     })
     $('#step' + i.toString()).on('dblclick', function() {
       $(this).toggleClass('stepOn');
-      $('')
     })
   }
+
+
+  $('#mode').on('click', function() {
+    if($(this).val() == 'design') {
+      $(this).val('compose');
+    }else if($(this).val() == 'compose') {
+      $(this).val('design');
+    }
+  });
+
 });
