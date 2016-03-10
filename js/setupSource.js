@@ -68,8 +68,9 @@ $(document).ready(function() {
   function schedule() {
     var quarter = ((60*1000)/bpm)/1000;
     var eighth = quarter/2;
+    var loop = $('#loopCntrl').val();
     console.log(eighth);
-    for (i = 0; i < 16; i++){
+    for (i = 0; i < (16*loop); i++){
       var increment = (i * eighth);
       // if(stepsEnabled[i] == true) {
         if($('#sample:checked').val()) {
@@ -85,7 +86,7 @@ $(document).ready(function() {
 
   for(i = 0; i < 16; i++) {
     $('#mainContainer').append('<div id="step' + i.toString() + '" class="step"></div>');
-    $('.step').attr('data-trigger', false);
+    // $('.step').attr('data-trigger', false);
   }
 
   $(window).keyup(function(e) {
@@ -127,5 +128,4 @@ $(document).ready(function() {
       $(this).val('design');
     }
   });
-
 });

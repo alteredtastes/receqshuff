@@ -9,12 +9,13 @@
     <div id="mainContainer">
       <div id="mainControls">
         <button id="playButton" name="playButton">Play</button>
+        <label class="loopCntrl" for="loopCntrl">loop:<input type="number" id="loopCntrl" class="loopCntrl" name="loop" value="1" min="1" max="2"/></label>
         <label class="bpmCntrl" for="bpm">bpm:<input type="number" id="bpm" class="bpmCntrl" name="bpm" value="120" min="0" max="500" step="5"/></label>
-        <label class="stepCntrl" for="startStep">step focus:<input type="number" id="startStep" class="stepCntrl" name="startStep" value="" min="1" max="16" step="1"/></label>
+        <label class="stepCntrl" for="startStep">focus:<input type="number" id="startStep" class="stepCntrl" name="startStep" value="" min="1" max="16" step="1"/></label>
         <label class="mode" for="mode">mode:<input type="button" id="mode" class="mode" name="mode" value="design"/></label>
         <label class="srcType" for="srcType">step source: <input type="radio" id="mic" class="srcType" name="srcType" value="mic"/>mic
         <input type="radio" id="sample" class="srcType" name="srcType" value="sample"/>sample
-        <input type="radio" id="synth" class="srcType" name="srcType" value="synth"/>synth</label>
+        <input type="radio" id="synth" class="srcType" name="srcType" value="synth" checked/>synth</label>
 
       </div>
     </div>

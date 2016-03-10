@@ -26,8 +26,15 @@
 }
 
 #mode {
-  width: 66px;
-  text-align: center;
+  width: 68px;
+}
+
+#startStep {
+  width: 25px;
+}
+
+#loopCntrl {
+  width: 20px;
 }
 
 div.trigger {
@@ -63,5 +70,5 @@ div.trigger {
 }
 
 .srcType {
-  padding-left: 83px;
+  padding-left: 55px;
 }
