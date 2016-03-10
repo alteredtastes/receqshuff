@@ -74,7 +74,8 @@ $(document).ready(function() {
     $('#step' + i.toString()).on('click', function(e) {
       $('.step').removeClass('stepSelected');
       $(this).toggleClass('stepSelected');
-      $('#startStep').val();
+      
+      $('#startStep').val('e.target.');
     })
   }
 });
