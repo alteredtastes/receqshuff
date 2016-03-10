@@ -1,11 +1,24 @@
 $(document).ready(function() {
 
-  var buf, bpm, spaceup, i;
+  var buf, bpm, spaceup, designOn, stepFocused, i;
   var vcos = []; //'voltage controlled oscillators'
   var vcas = []; //'voltage controlled amplifiers'
-  var stepsEnabled = [];
+  var steps = [];
+  var synthSettings = [];
   var context = new AudioContext();
   var time = context.currentTime + 1;
+
+  function StepId (stepNum, focused, stepSource, pitch, octave, waveType, attackTime, releaseTime, file) {
+    this.stepNum = stepNum;
+    this.focused = focused;
+    this.stepSource = stepSource;
+    this.pitch = pitch;
+    this.octave = octave;
+    this.waveType = waveType;
+    this.attackTime = attackTime;
+    this.releaseTime = releaseTime;
+    this.file = file;
+  }
 
   function attack(j, planned) {
     vcas[j].gain.cancelScheduledValues(planned);
@@ -69,25 +82,49 @@ $(document).ready(function() {
     var quarter = ((60*1000)/bpm)/1000;
     var eighth = quarter/2;
     var loop = $('#loopCntrl').val();
-    console.log(eighth);
+
     for (i = 0; i < (16*loop); i++){
       var increment = (i * eighth);
-      // if(stepsEnabled[i] == true) {
-        if($('#sample:checked').val()) {
+        if ($('#sample:checked').val()) {
           loadFile("beep", time + increment);
-        }else if($('#synth:checked').val()) {
+        } else if ( $('#synth:checked').val() ) {
           playSynth(time + increment, increment);
         }
-      // }
       triggerOn(i, increment);
       triggerOff(i, increment, eighth);
-      }
     }
+  }
+
+  function createWave (divClass, file) {
+    var wavesurfer = WaveSurfer.create({
+    container: step,
+    barWidth: 0.4,
+    normalize: true,
+    height: 175,
+    waveColor: 'black',
+    progressColor: 'purple'
+    });
+    wavesurfer.load(file);
+    return wavesurfer;
+    }
+
+    $('body').append('<div id="controlPanelRight" class="cpanel"></div>');
+    $('body').append('<div id="controlPanelBottom" class="cpanel"></div>');
+    $('.cpanel').hide();
 
   for(i = 0; i < 16; i++) {
     $('#mainContainer').append('<div id="step' + i.toString() + '" class="step"></div>');
-    // $('.step').attr('data-trigger', false);
+    $('#controlPanelRight').append('<div id="step' + i.toString() + 'synthCntrl"></div>');
+    $('#controlPanelRight').append('<div id="step' + i.toString() + 'sampleCntrl"></div>');
+    $('#controlPanelRight').append('<div id="step' + i.toString() + 'micCntrl"></div>');
+    $('#step' + i.toString() + 'synthCntrl').hide();
+    $('#step' + i.toString() + 'sampleCntrl').hide();
+    $('#step' + i.toString() + 'micCntrl').hide();
   }
+
+  // <label class="srcType" for="srcType">step source: <input type="radio" id="mic" class="srcType" name="srcType" value="mic"/>mic
+  // <input type="radio" id="sample" class="srcType" name="srcType" value="sample"/>sample
+  // <input type="radio" id="synth" class="srcType" name="srcType" value="synth" checked/>synth</label>
 
   $(window).keyup(function(e) {
     if (e.keyCode === 0 || e.keyCode === 32) {
@@ -107,17 +144,26 @@ $(document).ready(function() {
     })
 
   for(i = 0; i < 16; i++) {
-    $('#step' + i.toString()).on('click', function() {
+    var stepNum = i;
+    var focused = false;
+    var stepSource = $('#synth').val();
+    var pitch = 440;
+    var octave = 4;
+    var waveType = 'triangle';
+    var attackTime = 0.01;
+    var releaseTime = 0.6;
+    var file = 'beep';
+    steps[i] = new StepId (i, stepSource, pitch, octave, waveType, attackTime, releaseTime, file);
+  };
+
+  for(i = 0; i < 16; i++) {
+    $('#step' + i.toString()).on('click', function(e) {
       $('.step').removeClass('stepSelected');
       $(this).toggleClass('stepSelected');
-    })
-    $('#step' + i.toString()).on('dblclick', function() {
+      $('.cpanel').fadeIn(700);
+;    })
+    $('#step' + i.toString()).on('dblclick', function(e) {
       $(this).toggleClass('stepOn');
-      if(stepsEnabled[i] == false || stepsEnabled[i] == undefined) {
-        stepsEnabled[i] = true;
-      }else if(stepsEnabled[i] == true){
-        stepsEnabled[i] = false;
-      }
     })
   }
 
@@ -127,5 +173,6 @@ $(document).ready(function() {
     }else if($(this).val() == 'compose') {
       $(this).val('design');
     }
+
   });
 });

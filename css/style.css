@@ -16,9 +16,28 @@
   border: 1px solid black;
 }
 
-#sideControls {
-  width: 50px;
+#controlPanelRight {
+  position: relative;
+  box-sizing: border-box;
+  top: -623px;
+  left: 400px;
+  width: 200px;
+  height: 600px;
   margin: 0px auto;
+  border: 1px solid black;
+  border-bottom: none;
+}
+
+#controlPanelBottom {
+  position: relative;
+  box-sizing: border-box;
+  top: -623px;
+  left: 100px;
+  width: 800px;
+  height: 100px;
+  margin: 0px auto;
+  border: 1px solid black;
+  border-top: none;
 }
 
 #playButton {
