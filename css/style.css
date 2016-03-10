@@ -22,8 +22,6 @@
 .bpmCntrl {
 }
 
-
-
 #play {
   border: none;
 
@@ -38,7 +36,12 @@
 }
 
 .trigger {
-  background-color: grey;
-  border: 4px solid white;
+  background-color: black;
   opacity: 0.2;
+}
+
+.stepSelected {
+  background-color: green;
+  opacity: 0.2;
+  border: 4px solid yellow;
 }

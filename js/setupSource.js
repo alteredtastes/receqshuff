@@ -60,7 +60,7 @@ $(document).ready(function() {
       }
     })
 
-  $(window).keyup(function (e) {
+  $(window).keyup(function(e) {
     if (e.keyCode === 0 || e.keyCode === 32) {
       e.preventDefault();
       $('#play').removeClass('active');
@@ -70,4 +70,11 @@ $(document).ready(function() {
     }
   })
 
+  for(i = 0; i < 16; i++) {
+    $('#step' + i.toString()).on('click', function(e) {
+      $('.step').removeClass('stepSelected');
+      $(this).toggleClass('stepSelected');
+      $('#startStep').val();
+    })
+  }
 });
