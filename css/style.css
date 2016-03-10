@@ -15,7 +15,7 @@
 }
 
 .active {
-  background-color: blue;
+  background-color: black;
   color: white;
 }
 
@@ -24,7 +24,6 @@
 
 #play {
   border: none;
-
 }
 
 .step {
@@ -37,11 +36,15 @@
 
 .trigger {
   background-color: black;
-  opacity: 0.2;
+  opacity: 0.1;
+}
+
+.stepOn {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQIW2NkwAT/GbEIMmATxK3yPwMDWAecBgCcGwUDcihe1wAAAABJRU5ErkJggg==);
+  opacity: 0.4;
 }
 
 .stepSelected {
-  background-color: green;
-  opacity: 0.2;
-  border: 4px solid yellow;
+  opacity: 0.5;
+  border: 5px dotted black;
 }

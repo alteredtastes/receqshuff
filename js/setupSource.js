@@ -71,11 +71,12 @@ $(document).ready(function() {
   })
 
   for(i = 0; i < 16; i++) {
-    $('#step' + i.toString()).on('click', function(e) {
+    $('#step' + i.toString()).on('click', function() {
       $('.step').removeClass('stepSelected');
       $(this).toggleClass('stepSelected');
-      
-      $('#startStep').val('e.target.');
+    })
+    $('#step' + i.toString()).on('dblclick', function() {
+      $(this).toggleClass('stepOn');
     })
   }
 });
