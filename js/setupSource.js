@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  var buf, bpm, i;
+  var buf, bpm, spaceup, i;
   var context = new AudioContext();
   var time = context.currentTime + 1;
 
@@ -53,12 +53,20 @@ $(document).ready(function() {
     $('.step').attr('data-trigger', false);
   }
 
+  $(window).keydown(function(e) {
+    if (e.keyCode === 0 || e.keyCode === 32) {
+      e.preventDefault();
+      $('#play').addClass('active');
+      }
+    })
+
   $(window).keyup(function (e) {
-  if (e.keyCode === 0 || e.keyCode === 32) {
-    e.preventDefault()
-    bpm = $('#bpm').val();
-    time = context.currentTime + 1;
-    schedule();
+    if (e.keyCode === 0 || e.keyCode === 32) {
+      e.preventDefault();
+      $('#play').removeClass('active');
+      bpm = $('#bpm').val();
+      time = context.currentTime + 1;
+      schedule();
     }
   })
 
