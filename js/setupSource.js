@@ -67,8 +67,8 @@ $(document).ready(function() {
       bpm = $('#bpm').val();
       time = context.currentTime + 1;
       schedule();
-    }
-  })
+      }
+    })
 
   for(i = 0; i < 16; i++) {
     $('#step' + i.toString()).on('click', function() {
@@ -77,6 +77,7 @@ $(document).ready(function() {
     })
     $('#step' + i.toString()).on('dblclick', function() {
       $(this).toggleClass('stepOn');
+      $('')
     })
   }
 });

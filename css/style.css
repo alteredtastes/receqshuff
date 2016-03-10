@@ -1,17 +1,29 @@
 #mainControls {
   position: absolute;
-  margin: -20px auto;
+  margin: -23px auto;
   width: 600px;
   box-sizing: border-box;
   height: 20px;
+  font-family: Verdana;
+  font-size: 10px;
 }
 
 #mainContainer {
-  margin: 20px auto;
+  margin: 23px auto;
   width: 600px;
   height: 600px;
   box-sizing: border-box;
   border: 1px solid black;
+}
+
+#play {
+  border: none;
+}
+
+div.trigger {
+  background-color: black;
+  border: 3px solid black;
+  opacity: 0.1;
 }
 
 .active {
@@ -22,21 +34,12 @@
 .bpmCntrl {
 }
 
-#play {
-  border: none;
-}
-
 .step {
   border: 1px solid black;
   box-sizing: border-box;
   float: left;
   width: 25%;
   height: 25%;
-}
-
-.trigger {
-  background-color: black;
-  opacity: 0.1;
 }
 
 .stepOn {
@@ -47,4 +50,8 @@
 .stepSelected {
   opacity: 0.5;
   border: 5px dotted black;
+}
+
+.srcType {
+  padding-left: 105px;
 }
