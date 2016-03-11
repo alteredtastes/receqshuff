@@ -23,8 +23,8 @@
   box-sizing: border-box;
   margin-left: 600px;
   margin-top: -1px;
-  height: 600px;
-  width: 200px;
+  height: 601px;
+  width: 199px;
   border: 1px solid black;
   border-bottom: none;
   border-left: none;
@@ -33,7 +33,7 @@
 #controlPanelBottom {
   position: absolute;
   box-sizing: border-box;
-  margin-left: 0px;
+  margin-left: -1px;
   top: 600px;
   width: 800px;
   height: 100px;

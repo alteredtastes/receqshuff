@@ -136,7 +136,7 @@ $(document).ready(function() {
   for(i = 0; i < 16; i++) {
     var stepNum = i;
     var focused = false;
-    var stepSource = $('#synth').val();
+    var stepSource = 'synth';
     var pitch = 440;
     var octave = 4;
     var waveType = 'triangle';
@@ -150,6 +150,7 @@ $(document).ready(function() {
     $('#step' + i.toString()).on('click', function(e) {
       $('.step').removeClass('stepSelected');
       $(this).toggleClass('stepSelected');
+      if ($('#synthIn').prop('checked');
     })
     $('#step' + i.toString()).on('dblclick', function(e) {
       $(this).toggleClass('stepOn');
