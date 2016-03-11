@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  var buf, bpm, spaceup, designOn, stepFocused, i;
+  var buf, bpm, spaceup, designOn, stepFocused, $stepInput, $setStepInput, i;
   var vcos = []; //'voltage controlled oscillators'
   var vcas = []; //'voltage controlled amplifiers'
   var steps = [];
@@ -108,12 +108,15 @@ $(document).ready(function() {
     return wavesurfer;
     }
 
+
+
   for(i = 0; i < 16; i++) {
-    $('#mainContainer').append('<div id="step' + i.toString() + '" class="step"></div>');
+    $('#mainContainer').append('<div id="step' + i.toString() + '" class="step" data-stepInput="synth"></div>');
 
     $('.cpanel').append('<div id="step' + i.toString() + 'synthCntrl"></div>');
     $('.cpanel').append('<div id="step' + i.toString() + 'sampleCntrl"></div>');
     $('.cpanel').append('<div id="step' + i.toString() + 'micCntrl"></div>');
+    // $('.cpanel').hide();
   }
 
   $(window).keyup(function(e) {
@@ -147,12 +150,26 @@ $(document).ready(function() {
   };
 
   for(i = 0; i < 16; i++) {
-    $('#step' + i.toString()).on('click', function(e) {
+    $('#step' + i.toString()).on('click', function() {
       $('.step').removeClass('stepSelected');
       $(this).toggleClass('stepSelected');
-      if ($('#synthIn').prop('checked');
+      // $('.cpanel').fadeIn(500);
+
+      $stepInput = $(this).attr('data-stepInput');
+      $setStepInput = $('input[name="srcIns"]:checked').text();
+      if($stepInput != $setStepInput){
+        $('#' + $stepInput + 'In').prop('checked', true);
+      }
     })
-    $('#step' + i.toString()).on('dblclick', function(e) {
+  }
+
+  for(i = 0; i < 16; i++) {
+    $('.srcTypes').on('click', function() {
+      $setStepInput = $('input[name="srcIns"]:checked').attr('data-setStepInput');
+      $('.stepSelected').attr('data-stepInput', $setStepInput);
+    })
+
+    $('#step' + i.toString()).on('dblclick', function() {
       $(this).toggleClass('stepOn');
     })
   }
