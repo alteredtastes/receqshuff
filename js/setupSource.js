@@ -48,7 +48,7 @@ $(document).ready(function() {
 
   function loadFile(file, planned) {
     var req = new XMLHttpRequest();
-    var samplePath = "../assets/" + file + ".wav";
+    var samplePath = "assets/" + file + ".wav";
     req.open("GET", samplePath, true);
     req.responseType = "arraybuffer";
     req.onload = function() {
