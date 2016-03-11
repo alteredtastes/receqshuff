@@ -48,13 +48,15 @@ $(document).ready(function() {
 
   function loadFile(file, planned) {
     var req = new XMLHttpRequest();
-    req.open("GET","../assets/" + file + ".wav", true);
+    var samplePath = "../assets/" + file + ".wav";
+    req.open("GET", samplePath, true);
     req.responseType = "arraybuffer";
     req.onload = function() {
-        context.decodeAudioData(req.response, function(buffer) {
-            buf = buffer;
-            playFile(planned);
-        });
+      context.decodeAudioData(req.response, function(buffer) {
+        buf = buffer;
+        playFile(planned);
+        // createWave('.step[data-stepInput="sample"]', samplePath);
+      });
     };
     req.send();
   }
@@ -88,26 +90,26 @@ $(document).ready(function() {
         if(($('#step' + i.toString()).hasClass('stepOn')) &&
         ($('#step' + i.toString()).attr('data-stepInput')) == 'synth') {
           playSynth(time + increment, increment);
+        }else if(($('#step' + i.toString()).hasClass('stepOn')) &&
+        ($('#step' + i.toString()).attr('data-stepInput')) == 'sample') {
+          loadFile('cowbell', time + increment);
         }
       triggerOn(i, increment);
       triggerOff(i, increment, eighth);
     }
   }
 
-  function createWave (divClass, file) {
-    var wavesurfer = WaveSurfer.create({
-    container: step,
-    barWidth: 0.4,
-    normalize: true,
-    height: 175,
-    waveColor: 'black',
-    progressColor: 'purple'
-    });
-    wavesurfer.load(file);
-    return wavesurfer;
-    }
-
-
+  // function createWave (sampleStep, samplePath) {
+  //   var wavesurfer = WaveSurfer.create({
+  //   container: sampleStep,
+  //   barWidth: 1,
+  //   normalize: true,
+  //   height: 100,
+  //   waveColor: 'black',
+  //   progressColor: 'purple'
+  //   });
+  //   wavesurfer.load(samplePath);
+  //   }
 
   for(i = 0; i < 16; i++) {
     $('#mainContainer').append('<div id="step' + i.toString() + '" class="step" data-stepInput="synth"></div>');
@@ -115,7 +117,7 @@ $(document).ready(function() {
     $('.cpanel').append('<div id="step' + i.toString() + 'synthCntrl"></div>');
     $('.cpanel').append('<div id="step' + i.toString() + 'sampleCntrl"></div>');
     $('.cpanel').append('<div id="step' + i.toString() + 'micCntrl"></div>');
-    // $('.cpanel').hide();
+    $('.cpanel').hide();
   }
 
   $(window).keyup(function(e) {
@@ -144,7 +146,7 @@ $(document).ready(function() {
     var waveType = 'triangle';
     var attackTime = 0.01;
     var releaseTime = 0.6;
-    var file = 'beep';
+    var file = 'cowbell';
     steps[i] = new StepId (i, stepSource, pitch, octave, waveType, attackTime, releaseTime, file);
   };
 
@@ -153,6 +155,7 @@ $(document).ready(function() {
       $('.step').removeClass('stepSelected');
       $(this).toggleClass('stepSelected');
       // $('.cpanel').fadeIn(500);
+      $('form').fadeIn(200);
 
       $stepInput = $(this).attr('data-stepInput');
       $setStepInput = $('input[name="srcIns"]:checked').text();
@@ -171,7 +174,6 @@ $(document).ready(function() {
       $(this).toggleClass('stepOn');
     })
   }
-
 
   $('#mode').on('click', function() {
     if($(this).val() == 'design') {
