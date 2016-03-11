@@ -1,3 +1,12 @@
+#mainContainer {
+  position: relative;
+  margin: 23px auto;
+  width: 600px;
+  height: 600px;
+  box-sizing: border-box;
+  border: 1px solid black;
+}
+
 #mainControls {
   position: absolute;
   margin: -23px auto;
@@ -6,36 +15,28 @@
   height: 20px;
   font-family: Verdana;
   font-size: 10px;
-}
-
-#mainContainer {
-  margin: 23px auto;
-  width: 600px;
-  height: 600px;
-  box-sizing: border-box;
-  border: 1px solid black;
+  display: inline-block;
 }
 
 #controlPanelRight {
-  position: relative;
+  position: absolute;
   box-sizing: border-box;
-  top: -623px;
-  left: 400px;
-  width: 200px;
+  margin-left: 600px;
+  margin-top: -1px;
   height: 600px;
-  margin: 0px auto;
+  width: 200px;
   border: 1px solid black;
   border-bottom: none;
+  border-left: none;
 }
 
 #controlPanelBottom {
-  position: relative;
+  position: absolute;
   box-sizing: border-box;
-  top: -623px;
-  left: 100px;
+  margin-left: 0px;
+  top: 600px;
   width: 800px;
   height: 100px;
-  margin: 0px auto;
   border: 1px solid black;
   border-top: none;
 }
@@ -54,6 +55,11 @@
 
 #loopCntrl {
   width: 20px;
+}
+
+form.srcTypes {
+  display: inline-block;
+  padding-left: 55px;
 }
 
 div.trigger {
@@ -86,8 +92,4 @@ div.trigger {
 .stepSelected {
   opacity: 0.5;
   border: 5px dotted black;
-}
-
-.srcType {
-  padding-left: 55px;
 }

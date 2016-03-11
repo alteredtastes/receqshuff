@@ -13,11 +13,18 @@
         <label class="bpmCntrl" for="bpm">bpm:<input type="number" id="bpm" class="bpmCntrl" name="bpm" value="120" min="0" max="500" step="5"/></label>
         <label class="stepCntrl" for="startStep">focus:<input type="number" id="startStep" class="stepCntrl" name="startStep" value="" min="1" max="16" step="1"/></label>
         <label class="mode" for="mode">mode:<input type="button" id="mode" class="mode" name="mode" value="design"/></label>
-
+        <form class="srcTypes">step source:
+          <label for="micIn">
+          <input type="radio" name="srcIns" id="micIn"/>mic</label>
+          <label for="sampleIn">
+          <input type="radio" name="srcIns" id="sampleIn"/>sample</label>
+          <label for="synthIn">
+          <input type="radio" name="srcIns" id="synthIn" checked/>synth</label>
+        </form>
       </div>
+      <div id="controlPanelRight" class="cpanel"></div>
+      <div id="controlPanelBottom" class="cpanel"></div>
     </div>
-
-    <div id="sideControls"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="../js/setupSource.js"></script>

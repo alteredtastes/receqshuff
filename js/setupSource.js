@@ -108,23 +108,13 @@ $(document).ready(function() {
     return wavesurfer;
     }
 
-    $('body').append('<div id="controlPanelRight" class="cpanel"></div>');
-    $('body').append('<div id="controlPanelBottom" class="cpanel"></div>');
-    $('.cpanel').hide();
-
   for(i = 0; i < 16; i++) {
     $('#mainContainer').append('<div id="step' + i.toString() + '" class="step"></div>');
-    $('#controlPanelRight').append('<div id="step' + i.toString() + 'synthCntrl"></div>');
-    $('#controlPanelRight').append('<div id="step' + i.toString() + 'sampleCntrl"></div>');
-    $('#controlPanelRight').append('<div id="step' + i.toString() + 'micCntrl"></div>');
-    $('#step' + i.toString() + 'synthCntrl').hide();
-    $('#step' + i.toString() + 'sampleCntrl').hide();
-    $('#step' + i.toString() + 'micCntrl').hide();
-  }
 
-  // <label class="srcType" for="srcType">step source: <input type="radio" id="mic" class="srcType" name="srcType" value="mic"/>mic
-  // <input type="radio" id="sample" class="srcType" name="srcType" value="sample"/>sample
-  // <input type="radio" id="synth" class="srcType" name="srcType" value="synth" checked/>synth</label>
+    $('.cpanel').append('<div id="step' + i.toString() + 'synthCntrl"></div>');
+    $('.cpanel').append('<div id="step' + i.toString() + 'sampleCntrl"></div>');
+    $('.cpanel').append('<div id="step' + i.toString() + 'micCntrl"></div>');
+  }
 
   $(window).keyup(function(e) {
     if (e.keyCode === 0 || e.keyCode === 32) {
@@ -160,8 +150,7 @@ $(document).ready(function() {
     $('#step' + i.toString()).on('click', function(e) {
       $('.step').removeClass('stepSelected');
       $(this).toggleClass('stepSelected');
-      $('.cpanel').fadeIn(700);
-;    })
+    })
     $('#step' + i.toString()).on('dblclick', function(e) {
       $(this).toggleClass('stepOn');
     })
