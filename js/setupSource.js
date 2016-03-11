@@ -85,9 +85,8 @@ $(document).ready(function() {
 
     for (i = 0; i < (16*loop); i++){
       var increment = (i * eighth);
-        if ($('#sample:checked').val()) {
-          loadFile("beep", time + increment);
-        } else if ( $('#synth:checked').val() ) {
+        if(($('#step' + i.toString()).hasClass('stepOn')) &&
+        ($('#step' + i.toString()).attr('data-stepInput')) == 'synth') {
           playSynth(time + increment, increment);
         }
       triggerOn(i, increment);
@@ -168,11 +167,11 @@ $(document).ready(function() {
       $setStepInput = $('input[name="srcIns"]:checked').attr('data-setStepInput');
       $('.stepSelected').attr('data-stepInput', $setStepInput);
     })
-
     $('#step' + i.toString()).on('dblclick', function() {
       $(this).toggleClass('stepOn');
     })
   }
+
 
   $('#mode').on('click', function() {
     if($(this).val() == 'design') {
