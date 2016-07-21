@@ -8,7 +8,7 @@ Sequencer app uses jQuery to trigger sound enabled steps using the Web Audio API
 Future Hopes:  
 - Pop out sidebar controls to modify octave, waveform, attack, release, and more per step.  
 - Offer library of samples to select per step using web sound libraries. Display sample waveforms to steps with Wavesurfer-js.
-- Enable mic recording for creating custom step samples by step.  
+- Enable mic recording for creating custom samples per step.  
 - Provide draggable playhead for sample-enabled steps. Playhead would change where in the sample file the step trigger will begin playing.  
 
 CLICK to select step and change source.
