@@ -1,5 +1,7 @@
 # receqshuff
-Record, sequence, shuffle.
+Record, sequence, shuffle.  
+  
+VIDEO WALKTHROUGH - https://www.youtube.com/watch?v=qjNQ9qYwpQo&feature=youtu.be
 
 Sequencer app uses jQuery to trigger sound enabled steps using the Web Audio API.
 
